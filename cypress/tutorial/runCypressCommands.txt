@@ -1,0 +1,5 @@
+npx cypress open // abre cypress
+npx cypress run // corre los casos por consola
+npx cypress run --spec "cypress/e2e/webdriver-uni/contact-us.cy.js" //corre este solo spec por consola 
+npx cypress run --spec --record "cypress/e2e/webdriver-uni/contact-us.cy.js" //ademas te lo graba
+npx cypress run --spec "cypress/e2e/webdriver-uni/contact-us.cy.js" --headed --browser chrome  // lo corre directo por chrome

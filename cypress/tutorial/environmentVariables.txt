@@ -1,0 +1,63 @@
+ENVIRONMENT VARIABLES
+se configura en cypress.config.js 
+por ejemplo: si tenes que hacer un login, podes dejar las credentials aca
+si los datos son sensibles, tenes que dejar las variables vacias user: "", y los overideas por lineas de comando cuando ejecutas el test
+npx cypress run --spec 'ruta y nombre del archivo' --env password=1234 // asi estas corriendo el caso con esa password
+https://docs.cypress.io/guides/guides/command-line#cypress-run-env-lt-env-gt
+
+
+
+Ejemplo 1: configurar sarah
+
+const { defineConfig } = require("cypress");
+
+module.exports = defineConfig({
+  e2e: {
+    setupNodeEvents(on, config) {
+      // implement node event listeners here
+    },
+    specPattern: "cypress/e2e/**/*.{js,jsx,ts,tsx,feature}",
+    excludeSpecPattern: "cypress/e2e/other/*.js",
+    chromeWebSecurity: false,
+    experimentalSessionAndOrigin: true,
+    defaultCommandTimeout: 10000,
+    pageLoadTimeout: 120000,
+    env: {
+      first_name: "Sarah"
+    }
+  },
+});
+
+despues en el tc se configura Cypress.env("first_name")
+o 
+Cypress.env().first_name
+
+se puede usar tmb para 
+baseUrlApi: "www.bla.com"
+
+y en el test
+url: `${Cypress.env().baseUrlApi}/endpoint`
+
+Ejemplo 2: BASE URL
+
+  e2e: {
+    setupNodeEvents(on, config) {
+      // implement node event listeners here
+    },
+    specPattern: "cypress/e2e/**/*.{js,jsx,ts,tsx,feature}",
+    excludeSpecPattern: "cypress/e2e/other/*.js",
+    chromeWebSecurity: false,
+    baseUrl: "http://www.base.com",
+    experimentalSessionAndOrigin: true,
+    defaultCommandTimeout: 10000,
+    pageLoadTimeout: 120000,
+    env: {
+      first_name: "Sarah"
+    }
+  },
+})
+
+en el test pones
+cy.visit("/")
+
+Ejemplo 3: se podría agregar en una variable, suponiendo que tenemos dos url (baseUrl solo se puede usar una vez)

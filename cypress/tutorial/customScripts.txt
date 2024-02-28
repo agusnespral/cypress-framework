@@ -1,0 +1,26 @@
+CUSTOMER SCRIPTS
+en package.json
+
+{
+  "name": "cypress-automation-framework",
+  "version": "1.0.0",
+  "description": "Cypress Automation Framework",
+  "main": "index.js",
+  "scripts": {
+    "triggerAllTests-headless": "npx cypress run",
+    "triggerAllTests-headed": "npx cypress run --headed",
+    "triggerAllTests-chrome": "npx cypress run --browser chrome",
+    "triggerAllTests-dashboard": "npx cypress run --record --key 3025d595-10bc-4aad-91ed-5802e5896b45",
+    "triggerAllTests-webdriveruni": "npx cypress run --spec cypress/e2e/webdriver-uni/*"
+  },
+  "author": "Gianni Bruno",
+  "license": "ISC",
+  "devDependencies": {
+    "cypress": "^10.8.0",
+    "cypress-xpath": "^2.0.1"
+  }
+}
+
+en la consola pondrias
+
+npm run triggerAllTests-headless

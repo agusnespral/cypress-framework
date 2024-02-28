@@ -1,0 +1,65 @@
+CUSTOM COMMANDS
+Cypress comes with its own API for creating custom commands and overwriting existing commands. The built in Cypress commands use the very same API that's defined below.
+
+una de los usos es para algo que se repite, crear un custom command
+o por que son reusables
+
+esta en support/command.js
+
+ejemplo: esto va en el command.js
+haces un comando llamado clickLink, que busca el elemnto 'a' que contenga label (este label cambiara despues en cada caso) y le haga click
+
+Cypress.Commands.add('clickLink', (label) => {
+  cy.get('a').contains(label).click()
+})
+
+y en el caso de prueba pones:
+cy.clickLink('Buy Now')
+
+va a buscar dentro de 'a' el elemento que contenga el texto buy now y le hace click
+si en vez de buy now, pongo buy later, buscara ese texto
+
+PARA LOGIN en una api
+Cypress.Commands.add('login', (usuario, password) => {
+    cy.request({
+        method: "POST",
+        url: `${Cypress.env().baseUrlAPI}/login`,
+        body: {
+            username: usuario,
+            password: password
+        },
+    }).then(respuesta => {
+        window.localStorage.setItem('token', respuesta.body.token);
+        window.localStorage.setItem('user', respuesta.body.user.username);
+        window.localStorage.setItem('userId', respuesta.body.user._id);
+        Cypress.env().token = respuesta.body.token;
+    });
+});
+
+y en el test
+ before(() => {
+        cy.login(Cypress.env().usuario, Cypress.env().password);
+        cy.visit('');
+    });
+
+si se crean comandos en otra carpeta se deben importar en el commands
+import './requests/product'
+
+comando para buscar elementos en una pagina que tiene cy-data o algo asi
+en vez de hacer cy.get con cada selector, creas un unico comando y vas reemplazando el valor del data-cy
+
+Cypress.Commands.add('getByDataCy', (selector) => {
+    return cy.get(`[data-cy=${selector}]`)
+})
+
+y en el test lo llamas asi
+ cy.getByDataCy(productsPage.name)
+
+que a su vez conecta con un pom que importaste en el test
+export class ProductsPage {
+    constructor() {
+        this.name = 'name'
+        this.price = 'price'
+    }
+}
+

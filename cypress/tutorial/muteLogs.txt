@@ -1,0 +1,25 @@
+MUTE HIDE LOGS
+https://dev.to/samelawrence/muting-noisy-xhr-logs-in-cypress-4495
+
+For the fix, we add a flag to our cypress.config.js to allow us to enable or disable rich logging as needed.
+e2e: {
+  hideXHRInCommandLog: true
+}
+
+In our /cypress/support/e2e.Js file, we have:
+// Hide fetch/XHR requests from command log
+if (Cypress.config("hideXHRInCommandLog")) {
+  const app = window.top;
+
+  if (
+    app &&
+    !app.document.head.querySelector("[data-hide-command-log-request]")
+  ) {
+    const style = app.document.createElement("style");
+    style.innerHTML =
+      ".command-name-request, .command-name-xhr { display: none }";
+    style.setAttribute("data-hide-command-log-request", "");
+
+    app.document.head.appendChild(style);
+  }
+}

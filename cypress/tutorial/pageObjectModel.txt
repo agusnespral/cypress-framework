@@ -1,0 +1,100 @@
+PAGE OBJECT MODEL
+se crea en 
+cypress/support/pageObjects/nombre
+
+IMPORTAR:
+import { Trello } from 'cypress/support/pages/trelloCardsAgus.Page.js';
+y en el pom, al final: 
+export const Trello = new trello() // creas una constante Trello. new trello(): Este es un ejemplo de cómo se crea una nueva instancia de la clase trello utilizando la palabra clave new. Cuando se utiliza new antes de un constructor, se crea un nuevo objeto basado en esa clase o función constructora.
+
+ESTRUCTURA POM
+ejemplo 1
+class aliExpress {
+    // selectors
+
+    elements = {
+        searchField: () => cy.get("#search-words"),
+        paginationBar: () => cy.get('li[class^="comet-pagination-item"]'),
+        itemCard: () =>
+            cy.get(
+                '[class="multi--container--1UZxxHY cards--card--3PJxwBm search-card-item"]'
+            ),
+        stockAmount: () => cy.get(".comet-v2-input-number-input").invoke("val"),
+    };
+
+    // methods
+
+    inputSearchText(searchText) {
+        this.elements.searchField().type(searchText);
+    }
+
+    clickOnPagination(pageNum) {
+        this.elements.paginationBar().contains(pageNum).click();
+    }
+
+    clickOnItemCard(cardNum) {
+        this.elements.itemCard().eq(cardNum).invoke("removeAttr", "target").click();
+    }
+}
+
+export const checkStock = new aliExpress();
+class aliExpress {
+    // selectors
+
+    elements = {
+        searchField: () => cy.get("#search-words"),
+        paginationBar: () => cy.get('li[class^="comet-pagination-item"]'),
+        itemCard: () =>
+            cy.get(
+                '[class="multi--container--1UZxxHY cards--card--3PJxwBm search-card-item"]'
+            ),
+        stockAmount: () => cy.get(".comet-v2-input-number-input").invoke("val"),
+    };
+
+    // methods
+
+    inputSearchText(searchText) {
+        this.elements.searchField().type(searchText);
+    }
+
+    clickOnPagination(pageNum) {
+        this.elements.paginationBar().contains(pageNum).click();
+    }
+
+    clickOnItemCard(cardNum) {
+        this.elements.itemCard().eq(cardNum).invoke("removeAttr", "target").click();
+    }
+}
+
+export const checkStock = new aliExpress();
+
+
+ejemplo 2
+el POM es un .js con esta estructura
+class trello {         // creas la clase
+	getCard() {   // creas el metodo
+		cy.api({
+			method: 'GET',
+			url: fixture.URLs.cards + fixture.cardId,
+			qs: {
+				key: fixture.key,
+				token: fixture.token,
+			},
+		});
+	}
+}
+
+EN EL SPEC
+lo podes llamar asi
+Trello.getCard();
+
+PARANETRIZAR EN EL POM
+deleteProduct: Id => cy.get(`[data-cy="delete-${Id}"]`)   // mirar el id en la arrow function
+
+y en el metodo
+ clickOnDeleteProduct (Id) {
+        this.selectors.deleteProduct(Id).click();
+    }
+
+y en spec
+onlineShopPage.clickOnDeleteProduct(data.productId); //esta llamando al fixture que es data 

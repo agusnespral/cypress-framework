@@ -1,0 +1,25 @@
+IMPORTAR UN FIXTURE 
+
+podes definir donde cypress busca los fixtures en el cypress.config.js
+
+module.exports = defineConfig({
+  e2e: {
+    setupNodeEvents(on, config) {
+      // implement node event listeners here
+    specPattern: "cypress/e2e/**/*.js"
+    },
+  baseUrl: "https://pushing-it.vercel.app",
+  fixturesFolder: "cypress/e2e/",
+  defaultCommandTimeout: 5000
+  },
+});
+
+y despues adentro del it o del describe
+cy.fixture("online-shop/desafio-1/fixture").then((data) => {
+            onlineShopPage.iniciarSesion();
+
+        })
+
+o importarlo arriba de todo
+e.g 
+import fixture from 'cypress/fixtures/data/trelloAgus.json'; (copiar relative path (posix)
