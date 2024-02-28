@@ -1,0 +1,15 @@
+cypress
+    e2e 
+        folder with module name 
+            folder with scenario name
+                spec.cy.js
+                fixture.json // opt1 for fixtures. check on tuturial/fixtures.txt
+
+fixtures
+    fixture.json
+
+support
+    pageObjects
+        pageName.js
+
+

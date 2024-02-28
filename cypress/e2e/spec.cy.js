@@ -1,3 +1,5 @@
+/// <reference types = "cypress" />
+
 const directorioName = __dirname.replaceAll('\\', '/');
 const module = directorioName.split(/[/]/)[2]
 const scenarioName = directorioName.slice(directorioName.lastIndexOf('/') + 1).split('-').slice(0, -1).join('-');
