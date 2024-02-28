@@ -1,0 +1,44 @@
+name: 'Manual'
+on:
+  workflow_dispatch:
+    inputs:
+      module:
+        description: 'module folder'
+        default: "**"
+        required: true
+      scenario:
+        description: 'scenario to execute'
+        default: "**"
+        required: true
+jobs:
+  run-cypress:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Cypress run
+        uses: cypress-io/github-action@v5
+        with:
+          command: npx cypress run --spec cypress/e2e/${{inputs.module}}/${{inputs.scenario}}/spec.cy.js --browser chrome
+
+# 4 formas de correr workflow
+# push
+# pr
+# manual
+# automatica en un calendario
+
+# github
+# actions
+# setup a new workflow for yourself
+# on: -- idnica si es manul automatico push, etc
+# workflow_dispatch -- manual
+
+# inputs:
+# modulo: los que queres correr, en description definis la folder que queres que corra
+# scenario archivos que queres ejecutar
+
+# estos dos van a ser unos fields para despues completar cunado quieras corrar el job
+
+# jobs:
+# command: npx cypress run --sepec cypress/e2e/   -- el comando que se va a ejecutar
+
