@@ -25,7 +25,7 @@ jobs:
 # push
 # pr
 # manual
-# automatica en un calendario
+# automatica en un calendario https://crontab-generator.org/ para generar la hora en el formato
 
 # github
 # actions
