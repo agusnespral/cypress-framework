@@ -1,0 +1,227 @@
+git clone
+podés obtener una copia de un repositorio remoto. 
+En github: Haz clic en el botón verde "Code" en la parte superior derecha del repositorio. Esto desplegará una ventana emergente que muestra la URL del repositorio. 
+Copia la URL haciendo clic en el icono de copiar o utilizando Ctrl+C (o Command+C en Mac).
+
+git init
+Para crear un nuevo repositorio Git en tu proyecto, ve a la carpeta raíz y ejecuta el siguiente comando:
+Esto establece un repositorio local en tu proyecto y crea una carpeta oculta llamada ".git" que almacena la información de control de versiones.
+ luego de clonar el repo, tenes que inicializarlo
+
+git remote add [nombre] [url]
+Para añadir un remoto nuevo y asociarlo a un nombre que puedas referenciar fácilmente
+
+git remote 
+Mostrará los nombres de cada uno de los remotos que tienes especificados. 
+Si has clonado tu repositorio, deberías ver al menos origin (origen, en inglés) - este es el nombre que por defecto Git le da al servidor del que has clonado
+
+git remote -v
+muestra las URLs que Git ha asociado al nombre y que serán usadas al leer y escribir en ese remoto
+
+git add nombre-del-archivo
+Antes de confirmar (commit) tus cambios, debes agregarlos al "área de preparación". Utiliza el siguiente comando para agregar archivos o cambios específicos:
+También podés usar git add . para agregar todos los cambios en la carpeta actual al área de preparación.
+
+git commit -m "Mensaje descriptivo"
+Una vez que hayas agregado tus cambios al área de preparación, realiza un compromiso para registrarlos en el historial de versiones. Utiliza el siguiente comando:
+Reemplaza "Mensaje descriptivo" con un mensaje que describa los cambios que has realizado. Este mensaje es importante para mantener un registro de los cambios realizados.
+el commit es como "cerrar una etapa"
+
+git commit --amend (agrega al ultimo commit hecho un cambio que te olvidaste de poner, lo add y luego usas el comando ammend y cambia -solo al ultimo-)
+
+git status 
+te dice si hay cambios, que hay que add y commit
+
+git diff 
+muestra los cambios hechos
+git diff #commit1 #commit2 (ver en git log) v
+
+git log nos muestra los comits hechos
+git log --oneline muestra cada commit en una line
+
+
+RAMAS
+git branch
+Para crear una nueva rama en Git, utiliza el siguiente comando:
+git branch nombre-de-la-rama
+
+git checkout
+Para cambiar a la nueva rama que has creado, utiliza el siguiente comando:
+git checkout nombre-de-la-rama
+
+eliminar rama
+git branch -d nombre-de-la-rama
+El uso de "-d" garantiza que la rama se elimine solo si los cambios se han fusionado correctamente en la rama principal. Si deseas eliminar una rama sin realizar una fusión, utilizá "-D" en lugar de "-d".
+
+Rama "main" (o "master"):
+En Git, la rama "main" (anteriormente conocida como "master") es la rama principal de desarrollo. Es la rama predeterminada en un repositorio y generalmente contiene la versión estable y funcional de un proyecto. Es común que la rama "main" se utilice para despliegues en producción.
+Evitar Trabajar en "main": Evita realizar cambios directamente en la rama "main" para minimizar el riesgo de conflictos y errores.
+
+HEAD -> master, testing
+la primera es en la rama que estas, y las siguientes son otras ramas existentes
+
+git push (subir cambios al repo en github)
+git push -u origin nombre de la rama
+origin es el nombre del remoto 
+Reemplaza "nombre-de-la-rama" con el nombre de la rama en la que trabajas. Esto enviará tus cambios al repositorio remoto en GitHub.
+
+git pull
+Otro colaborador realiza cambios en el repositorio remoto en GitHub.
+Para obtener los cambios del repositorio remoto a tu repositorio local, utiliza el comando:
+git pull origin nombre-de-rama 
+Esto descargará los cambios desde GitHub y los fusionará con tus archivos locales.
+
+INTERFAZ GRAFICA DE VSC
+se puede add, commit y pushear desde vsc (agregar, mensaje+confirmar, sincronizar)
+
+
+REVERTIR CAMBIOS
+reset
+Usa el comando "git log" para ver el historial de commits y encuentra el identificador (hash) del commit que deseas revertir. Copia este identificador.
+Para revertir los cambios al commit deseado, utiliza el comando "git reset" seguido del identificador del commit:
+git reset identificador-del-commit
+Esto moverá la rama actual al commit especificado, eliminando todos los commits posteriores. Los cambios no se pierden, pero quedan en el área de trabajo sin confirmar.
+
+git reset #commit (ver en gitlog) borra el commit TENER CUIDADO CON ESTE COMMAND CUANDO SE COMPARTE CON OTROS EL REPO REMOTO
+
+git reset --hard (borra del stage y del local)
+
+git reset -soft 
+
+revert
+Para crear un nuevo commit que deshaga los cambios del commit seleccionado, utiliza el comando "git revert" seguido del identificador del commit:
+git revert identificador-del-commit
+Esto creará un nuevo commit que deshace los cambios del commit original, sin afectar el historial del proyecto.
+
+git restore nombre de archivo (te deshace los ultimos cambios guardados, verlos antes con git diff)
+git restore --staged (lo mismo que el anterior, pero si ya fue add. despues para volver al anterior hay que hacer de nuevo el restor anterior)
+
+GITIGNORE
+el archivo .gitignore es una herramienta poderosa para evitar que archivos y directorios no deseados se incluyan en tu repositorio Git
+Crea un archivo llamado ".gitignore" en la raíz de tu repositorio. Puedes hacerlo con un editor de texto o con comandos en la terminal.
+Abre el archivo .gitignore con un editor de texto y añade las reglas para ignorar archivos y directorios.
+Por ejemplo, para ignorar todos los archivos .log:
+*.log
+Para ignorar un directorio llamado "temp":
+temp/
+Usa los comandos de Git para confirmar los cambios y agregar el archivo .gitignore al repositorio:
+git add .gitignore git commit -m "Añadido archivo .gitignore"
+
+
+FUSION DE RAMAS
+La fusión de ramas es una parte esencial de la gestión de versiones en Git. 
+
+Guía paso a paso sobre cómo fusionar ramas y resolver conflictos:
+
+Paso 1: Cambiar a la Rama Destino:
+Para fusionar cambios de una rama en otra, primero cambia a la rama en la que deseas integrar los cambios. Por ejemplo, podés cambiar a la rama "main" con:
+git checkout main
+Paso 2: Iniciar la Fusión:
+Una vez en la rama destino, inicia la fusión con la rama que contiene los cambios que deseas integrar. Utiliza el comando:
+git merge nombre-de-la-rama
+Esto intentará fusionar los cambios de la rama especificada en la rama actual.
+Paso 3: Resolver Conflictos:
+Si Git detecta conflictos entre las versiones de archivos en ambas ramas, te informará que se han producido conflictos y no podrá realizar la fusión automáticamente.
+Debes abrir los archivos en conflicto en un editor de texto y resolver manualmente los conflictos. Git indicará las áreas conflictivas con marcas especiales. Edita el archivo para seleccionar las partes que deseas mantener.
+Una vez resueltos los conflictos, guarda los archivos y ejecuta:
+git add nombre-del-archivo
+Esto marca los archivos como resueltos.
+Paso 4: Confirmar la Fusión:
+Confirma los cambios con el comando:
+git commit -m "Mensaje de fusión"
+Este compromiso registra la fusión de las ramas y el mensaje de fusión describe los cambios realizados.
+
+
+CONFLICTOS
+Los conflictos de fusión pueden ocurrir cuando dos ramas tienen cambios diferentes en las mismas partes de un archivo
+Identificar Conflictos de Fusión
+Paso 1: Actualizar el Repositorio:
+Antes de fusionar o hacer un pull, asegúrate de que tu repositorio local esté actualizado con "git pull".
+Paso 2: Fusionar Ramas o Hacer Pull:
+Fusiona una rama con "git merge" o haz un pull con "git pull". Si hay conflictos, Git te lo notificará.
+Paso 3: Identificar Conflictos:
+Abre los archivos con conflictos en un editor de código. Verás secciones marcadas como "<<<<<<<", "=======", y ">>>>>>>", que indican las diferencias entre las ramas.
+Resolver Conflictos
+Paso 1: Edita el Archivo:
+Edita el archivo en conflicto para conservar las partes que deseas mantener. Elimina las marcas "<<<", "===", y ">>>".
+Paso 2: Guardar Cambios:
+Guarda el archivo después de realizar las ediciones necesarias.
+Paso 3: Confirmar Cambios:
+Usa "git add" para agregar el archivo modificado al área de preparación.
+git add nombre-del-archivo
+Paso 4: Completar la Fusión:
+Continúa con la fusión o el pull usando "git commit" para completar el proceso de fusión.
+git commit -m "Resuelto conflicto de fusión"
+
+ETIQUETAR Versiones con Git
+Etiquetar versiones es esencial para marcar hitos importantes en tu proyecto
+
+Para crear una etiqueta ligera (lightweight tag), ejecuta el comando:
+git tag nombre-de-la-etiqueta identificador-del-commit
+Reemplaza "nombre-de-la-etiqueta" con el nombre que desees para la etiqueta y "identificador-del-commit" con el identificador del commit.
+Paso 4: Verificar la Etiqueta:
+Puedes verificar que la etiqueta se ha creado correctamente usando el comando:
+git show nombre-de-la-etiqueta
+Esto mostrará información sobre el commit etiquetado.
+
+Subir Etiquetas a GitHub:
+Para subir las etiquetas a GitHub, utiliza el comando:
+git push origin --tags
+
+Eliminar una Etiqueta:
+Si necesitas eliminar una etiqueta, utiliza el comando:
+git tag -d nombre-de-la-etiqueta
+
+Eliminar una Etiqueta en GitHub:
+Para eliminar una etiqueta en GitHub, ejecuta el comando:
+git push --delete origin nombre-de-la-etiqueta
+
+RESUMEN LINDO
+Flujo de Trabajo Centralizado
+El flujo de trabajo centralizado se utiliza en proyectos simples o pequeños. Aquí tienes los pasos para trabajar con este flujo:
+
+git fetch (le pregunta al remoto si tiene novedades y descargarla)
+
+Paso 1: Clonar el Repositorio:
+Clona el repositorio centralizado en tu computadora con el comando "git clone".
+Paso 2: Trabajar en la Rama Principal:
+Realiza tus cambios y desarrollos en la rama principal (generalmente "main" o "master").
+Paso 3: Confirmar Cambios:
+Usa "git add" y "git commit" para confirmar tus cambios en tu rama local.
+Paso 4: Actualizar el Repositorio Remoto:
+Antes de enviar tus cambios, asegúrate de que tu repositorio local esté actualizado con el repositorio remoto usando "git pull".
+Paso 5: Enviar Cambios al Repositorio Central:
+Finalmente, utiliza "git push" para enviar tus cambios al repositorio centralizado.
+Flujo de Trabajo Ramificado
+El flujo de trabajo ramificado es ideal para proyectos más grandes y equipos colaborativos. Aquí tienes los pasos para trabajar con este flujo:
+
+Paso 1: Clonar el Repositorio:
+Clona el repositorio centralizado en tu computadora con "git clone".
+Paso 2: Crear una Rama:
+Crea una rama nueva para trabajar en tu función o característica con "git branch nombre-de-la-rama".
+Paso 3: Cambiar de Rama:
+Usa "git checkout nombre-de-la-rama" para cambiar a la rama que creaste.
+Paso 4: Trabajar en la Rama:
+Realiza tus cambios y desarrollos en esta rama.
+Paso 5: Confirmar Cambios:
+Confirma tus cambios en tu rama local con "git add" y "git commit".
+Paso 6: Fusionar Rama con la Principal:
+Una vez que tus cambios estén listos, cámbiate a la rama principal y usa "git merge" para fusionar tu rama con la rama principal.
+Paso 7: Actualizar el Repositorio Remoto:
+Antes de enviar tus cambios, asegúrate de que tu repositorio local esté actualizado con el repositorio remoto usando "git pull".
+Paso 8: Enviar Cambios al Repositorio Central:
+Finalmente, utiliza "git push" para enviar tus cambios al repositorio centralizado.
+Con estos pasos, habrás aprendido cómo funcionan los flujos de trabajo centralizados y ramificados en Git. Elige el flujo que mejor se adapte a tus necesidades y las de tu proyecto.
+
+git merge origin/master merge entre la rama remota y la local
+
+ANTES DE LA JORNADA
+git fetch origin QA
+git diff origin/QA
+git merge origin/QA
+
+
+CURSO ONLINE
+https://aulaonline.com.ar/
+
+Visita la documentación oficial de Git (https://git-scm.com/doc) y GitHub (https://docs.github.com) para obtener información detallada sobre el funcionamiento y características de estas plataformas
