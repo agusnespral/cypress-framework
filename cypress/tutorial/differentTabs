@@ -1,0 +1,7 @@
+it('Handling new tab', () => {
+    cy
+      .get('#contact-us')
+      .invoke("removeAttr", "target")
+      .click() // will open the contact page in a new tab
+    cy.get("h1").should("have.text", "Contact");
+  })
