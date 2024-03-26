@@ -1,0 +1,22 @@
+javaScript to localString dates
+
+describe(`${scenarioName} - ${module} `, () => {
+    const date = new Date();
+    });
+
+
+    it.only('fechas', function () {
+        
+        let data = date.toLocaleDateString('en-UK');
+        let data1 = date.toLocaleDateString('es-es');;
+        let data2 = date.toLocaleDateString('en-US');;
+        cy.then(() => {
+            cy.log(date)
+            cy.log(data)
+            cy.log(data1)
+            cy.log(data2)
+        })
+
+    });
+
+});

@@ -1,0 +1,4 @@
+cypress snipets de andrew smith
+es6 mocha snipets
+vscode-icons
+rainbow brackets

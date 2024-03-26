@@ -6,6 +6,7 @@ https://www.npmjs.com/package/pg
 https://www.npmjs.com/package/cypress-postgres
 
 1. instalar pg
+npm install -D cypress pg
 2. en cypress config agregar const {client} = require('pg')
 3. poner en cypress config dentro de e2e (cambiar usuario, pass, host, database y puerto). se pasa la query por parametro
 e2e: {

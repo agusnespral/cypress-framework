@@ -17,8 +17,9 @@
   },
   "homepage": "https://github.com/agusnespral/cypress-framework#readme",
   "devDependencies": {
-    "cypress": "^13.6.6",
-    "eslint-plugin-cypress": "^2.15.1"
+    "cypress": "^13.7.1",
+    "eslint-plugin-cypress": "^2.15.1",
+    "pg": "^8.11.3"
   },
   "dependencies": {
     "npx": "^10.2.2"
